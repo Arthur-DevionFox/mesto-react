@@ -1,8 +1,12 @@
+import Header from "./components/Header";
+import React from "react";
+
 function App() {
   return (
       <>
-  <div className={"page"}>
 
+  <div className={"page"}>
+      <Header />
 
       <main>
         <section className={"profile"}>
