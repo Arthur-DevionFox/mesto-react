@@ -1,21 +1,28 @@
 import React from "react";
+import api from "../utils/Api";
 
-function Main() {
+function Main(props) {
+
+
+
+    const [ userName, setUserName ] = React.useState('Имя пользователя')
+    const [ userAvatar, setUserAvatar ] = React.useState('https://graziamagazine.ru/upload/attach/e6b/e6b512b4232be912a087f9166040e6ec.jpg')
+    const [ userDescription, setUserDescription ] = React.useState('Род деятельности')
+
     return (
         <main>
             <section className={"profile"}>
-                <button className={"profile__avatar-btn"} onClick={handleEditAvatarClick}>
-                    <img alt="Аватар" className={"profile__avatar"} src={require('../images/Avatar.jpg')} />
+                <button className={"profile__avatar-btn"} onClick={props.onAvatarPlace}>
+                    <img alt="Аватар" className={"profile__avatar"} src={userAvatar}/>
                 </button>
                 <div className={"profile__info"}>
-
                     <div className={"profile__paragraphs"}>
-                        <h1 className={"profile__name"}>Жак-Ив Кусто</h1>
-                        <p className={"profile__profession"}>Исследователь океана</p>
+                        <h1 className={"profile__name"}>{userName}</h1>
+                        <p className={"profile__profession"}>{userDescription}</p>
                     </div>
-                    <button className={"profile__edit-button"} type="button" onClick={handleEditProfileClick}></button>
+                    <button className={"profile__edit-button"} type="button" onClick={props.onEditProfile}></button>
                 </div>
-                <button className={"profile__add-button"} type="button" onClick={handleAddPlaceClick}></button>
+                <button className={"profile__add-button"} type="button" onClick={props.onAddPlace}></button>
             </section>
 
             <section className={"elements"}>
@@ -25,20 +32,4 @@ function Main() {
         </main>
     )
 }
-
-function handleEditAvatarClick() {
-    const editAvatarPopup = document.querySelector('#avatar');
-    editAvatarPopup.classList.add('popup_opened')
-}
-
-function handleEditProfileClick() {
-    const editInfoPopup = document.querySelector('#edit');
-    editInfoPopup.classList.add('popup_opened')
-}
-
-function handleAddPlaceClick() {
-    const addPlacePopup = document.querySelector('#add');
-    addPlacePopup.classList.add('popup_opened')
-}
-
 export default Main
