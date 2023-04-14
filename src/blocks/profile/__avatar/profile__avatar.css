@@ -4,6 +4,8 @@
     border-radius: 120px;
     background-color: rgba(0, 0, 0, 0.8);
     object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
