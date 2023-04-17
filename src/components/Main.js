@@ -1,32 +1,49 @@
-import React from "react";
+import React, {useEffect} from "react";
 import api from "../utils/Api";
+import Card from "./Card";
+import card from "./Card";
 
 function Main(props) {
 
+    const [userInfo, setUserInfo] = React.useState({});
+    const [cards, setCards] = React.useState([]);
 
-
-    const [ userName, setUserName ] = React.useState('Имя пользователя')
-    const [ userAvatar, setUserAvatar ] = React.useState('https://graziamagazine.ru/upload/attach/e6b/e6b512b4232be912a087f9166040e6ec.jpg')
-    const [ userDescription, setUserDescription ] = React.useState('Род деятельности')
+    useEffect(() => {
+        Promise.all([api.getProfileInfo(), api.getInitialCards()]).then(([profileInfo, card]) => {
+            setUserInfo(profileInfo)
+            setCards(card)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [])
 
     return (
         <main>
             <section className={"profile"}>
                 <button className={"profile__avatar-btn"} onClick={props.onAvatarPlace}>
-                    <img alt="Аватар" className={"profile__avatar"} src={userAvatar}/>
+                    <img className={"profile__avatar"} src={userInfo.avatar} alt={userInfo.name} />
                 </button>
                 <div className={"profile__info"}>
                     <div className={"profile__paragraphs"}>
-                        <h1 className={"profile__name"}>{userName}</h1>
-                        <p className={"profile__profession"}>{userDescription}</p>
+                        <h1 className={"profile__name"}>{userInfo.name}</h1>
+                        <p className={"profile__profession"}>{userInfo.about}</p>
                     </div>
                     <button className={"profile__edit-button"} type="button" onClick={props.onEditProfile}></button>
                 </div>
                 <button className={"profile__add-button"} type="button" onClick={props.onAddPlace}></button>
             </section>
 
-            <section className={"elements"}>
-
+            <section className="elements">
+                {cards.map((card, id) => (
+                    <Card
+                        key={id}
+                        card={card}
+                        link={card.link}
+                        name={card.name}
+                        likes={card.likes.length}
+                        onCardClick={props.onCardClick}
+                    />
+                ))}
             </section>
 
         </main>
