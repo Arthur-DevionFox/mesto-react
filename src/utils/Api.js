@@ -40,7 +40,7 @@ class Api {
             headers: this._getHeaders(),
             body: JSON.stringify({
                 name: data.name,
-                about: data.profession
+                about: data.about
             })
         })
             .then(this._getJson)
