@@ -1,13 +1,13 @@
 import React from "react";
 
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
-import EditProfilePopup from "./components/EditProfilePopup";
-import EditAvatarPopup from "./components/EditAvatarPopup";
-import AddPlacePopup from "./components/AddPlacePopup";
-import DeletePopup from "./components/DeletePopup";
-import ImagePopup from "./components/ImagePopup";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import DeletePopup from "./DeletePopup";
+import ImagePopup from "./ImagePopup";
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setCard(false)
+    setCard(null)
   }
 
 

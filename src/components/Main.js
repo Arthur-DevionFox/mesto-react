@@ -33,9 +33,9 @@ function Main(props) {
             </section>
 
             <section className="elements">
-                {cards.map((card, id) => (
+                {cards.map((card) => (
                     <Card
-                        key={id}
+                        key={card.id}
                         card={card}
                         link={card.link}
                         name={card.name}
