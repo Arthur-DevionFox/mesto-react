@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import api from "../utils/Api";
 import Card from "./Card";
-import card from "./Card";
 
 function Main(props) {
 
