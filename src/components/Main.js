@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import api from "../utils/Api";
 import Card from "./Card";
-import card from "./Card";
 
 function Main(props) {
 
@@ -34,9 +33,9 @@ function Main(props) {
             </section>
 
             <section className="elements">
-                {cards.map((card, id) => (
+                {cards.map((card) => (
                     <Card
-                        key={id}
+                        key={card._id}
                         card={card}
                         link={card.link}
                         name={card.name}
