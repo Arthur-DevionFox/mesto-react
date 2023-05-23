@@ -21,8 +21,8 @@ function EditProfilePopup(props) {
         evt.preventDefault();
 
         props.onSubmit({
-            profile_name: name,
-            profile_job: description
+            name: name,
+            about: description
         });
     }
 
@@ -42,15 +42,12 @@ function EditProfilePopup(props) {
             form={'profileData'}
             title={'Редактировать профиль'}
             buttonText={'Сохранить'}
-            onSubmit={handleSubmit}
+            onSubmit = {handleSubmit}
         >
-        <form name={"profile-form"} className={"popup__form"} id={"form-edit"} noValidate>
-            <input id={"input-name"} className={"popup__input popup__input_type_name"} placeholder={"Введите имя"} minLength="2" maxLength="40" type={"text"} name={"name"} required/>
+            <input id={"name"} className={"popup__input popup__input_type_name"} onChange={handleNameChange} placeholder={"Введите имя"} minLength="2" maxLength="40" type={"text"} value={name} required/>
             <span className={"popup__input-error input-name-error"}></span>
-            <input id={"input-profession"} className={"popup__input popup__input_type_profession"} placeholder={"Введите род деятельности"} minLength="2" maxLength="200" type={"text"} name={"description"} required/>
+            <input id={"about"} className={"popup__input popup__input_type_profession"} onChange={handleDescriptionChange} placeholder={"Введите род деятельности"} minLength="2" maxLength="200" value={description} name={"description"} required/>
             <span className={"popup__input-error input-profession-error"}></span>
-            <button className={"popup__submit"} type={"submit"}>Сохранить</button>
-        </form>
     </PopupWithForm> )
 }
 

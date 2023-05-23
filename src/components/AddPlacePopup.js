@@ -1,6 +1,35 @@
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
+
+    const [name, setName] = React.useState('');
+    const [link, setLink] = React.useState('');
+
+    function handleNameChange(evt) {
+        setName(evt.target.value);
+    }
+
+    function handleLinkChange(evt) {
+        setLink(evt.target.value);
+    }
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+
+        props.onSubmit({
+            name: name,
+            link: link
+        });
+    }
+
+    React.useEffect(() => {
+        if (props.isOpen) {
+            setName('');
+            setLink('');
+        }
+    }, [props.isOpen]);
+
     return (
         <PopupWithForm
             title = {'Обновить аватар'}
@@ -9,14 +38,13 @@ function AddPlacePopup(props) {
             isOpen = {props.isOpen}
             onClose = {props.onClose}
             onCloseClick = {props.onCloseClick}
+            buttonText = {'Создать'}
+            onSubmit={handleSubmit}
         >
-            <form className={"popup__form"} name={"card-form"} id={"form-add"} noValidate>
-                <input id={"input-title"} className={"popup__input popup__input_type_head"} minLength="2" maxLength="30" placeholder="Название" type="text" name="name" required/>
+                <input id={"input-title"} className={"popup__input popup__input_type_head"} minLength="2" maxLength="30" placeholder="Название" type="text" name="name" onChange={handleNameChange} required/>
                 <span className={"popup__input-error input-title-error"}></span>
-                <input id={"input-url"} className={"popup__input popup__input_type_url"} placeholder="Ссылка на картинку" type="url" name="link" required/>
+                <input id={"input-url"} className={"popup__input popup__input_type_url"} placeholder="Ссылка на картинку" type="url" name="link" onChange={handleLinkChange} required/>
                 <span className={"popup__input-error input-url-error"}></span>
-                <button className={"popup__submit"} type="submit" id="add-save">Создать</button>
-            </form>
         </PopupWithForm>
     )
 }

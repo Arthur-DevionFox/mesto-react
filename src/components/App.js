@@ -78,6 +78,14 @@ function App() {
     }
   }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen,]);
 
+  function handleUpdateUser(data) {
+    api.editProfileInfo(data).then((newUser) => {
+      setCurrentUser(newUser);
+      closeAllPopups();
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -145,18 +153,21 @@ function App() {
         isOpen = {isEditProfilePopupOpen}
         onClose = {closeAllPopups}
         onCloseClick = {closeByClick}
+        onSubmit = {handleUpdateUser}
     />
 
     <EditAvatarPopup
         isOpen = {isEditAvatarPopupOpen}
         onClose = {closeAllPopups}
         onCloseClick = {closeByClick}
+        onSubmit = {handleAvatarUpdate}
     />
 
     <AddPlacePopup
         isOpen = {isAddPlacePopupOpen}
         onClose = {closeAllPopups}
         onCloseClick = {closeByClick}
+        onSubmit = {handleAddPlaceSubmit}
     />
 
     <DeletePopup />
