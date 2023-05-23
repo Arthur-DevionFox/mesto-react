@@ -1,13 +1,16 @@
 import React from "react";
+import api from "./utils/Api";
 
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import DeletePopup from "./DeletePopup";
-import ImagePopup from "./ImagePopup";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Footer from "./components/Footer";
+import EditProfilePopup from "./components/EditProfilePopup";
+import EditAvatarPopup from "./components/EditAvatarPopup";
+import AddPlacePopup from "./components/AddPlacePopup";
+import DeletePopup from "./components/DeletePopup";
+import ImagePopup from "./components/ImagePopup";
+import {CurrentUserContext} from "./contexts/CurrentUserContext";
+
 
 function App() {
 
@@ -16,12 +19,24 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
   const [card, setCard] = React.useState(null)
 
+  const [currentUser, setCurrentUser] = React.useState({})
+  const [cards, setCards] = React.useState([])
+
+
+  React.useEffect(() => {
+    Promise.all([api.getProfileInfo(), api.getInitialCards()]).then(([user, cards]) => {
+      setCurrentUser(user);
+      setCards(cards);
+    }).catch((err) => {
+      console.error(err);
+    });
+  }, []);
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setCard(null)
+    setCard(false)
   }
 
 
@@ -66,7 +81,7 @@ function App() {
 
 
   return (
-      <>
+      <CurrentUserContext.Provider value={currentUser}>
   <div className={"page"}>
     <Header />
 
@@ -106,7 +121,7 @@ function App() {
     />
 
   </div>
-        </>
+        </CurrentUserContext.Provider>
   );
 }
 
