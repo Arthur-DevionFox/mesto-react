@@ -1,15 +1,15 @@
 import React from "react";
-import api from "./utils/Api";
+import api from "../utils/Api";
 
-import Header from "./components/Header";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
-import EditProfilePopup from "./components/EditProfilePopup";
-import EditAvatarPopup from "./components/EditAvatarPopup";
-import AddPlacePopup from "./components/AddPlacePopup";
-import DeletePopup from "./components/DeletePopup";
-import ImagePopup from "./components/ImagePopup";
-import {CurrentUserContext} from "./contexts/CurrentUserContext";
+import Header from "../components/Header";
+import Main from "../components/Main";
+import Footer from "../components/Footer";
+import EditProfilePopup from "../components/EditProfilePopup";
+import EditAvatarPopup from "../components/EditAvatarPopup";
+import AddPlacePopup from "../components/AddPlacePopup";
+import DeletePopup from "../components/DeletePopup";
+import ImagePopup from "../components/ImagePopup";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 
 function App() {
