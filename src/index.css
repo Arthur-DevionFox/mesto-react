@@ -51,6 +51,7 @@
 @import url(./blocks/element/__image/element__image.css);
 @import url(./blocks/element/__info/element__info.css);
 @import url(./blocks/element/__delete/element__delete.css);
+@import url(./blocks/element/__delete/_visible/element__delete_visible.css);
 @import url(./blocks/element/__like-info/element__like-info.css);
 @import url(./blocks/element/__counter/element__counter.css);
 @import url(./blocks/element/__like/element__like.css);

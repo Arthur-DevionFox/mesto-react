@@ -73,8 +73,8 @@ class Api {
         return Promise.all([this.getInitialCards(), this.editProfileInfo()])
     }
 
-    deleteCard(id) {
-        return fetch(`${this._path}/cards/${id}`, {
+    deleteCard(data) {
+        return fetch(`${this._path}/cards/${data._id}`, {
             method: 'DELETE',
             headers: this._getHeaders(),
             })
