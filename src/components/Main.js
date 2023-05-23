@@ -1,24 +1,10 @@
-import React, {useEffect} from "react";
-import api from "../utils/Api";
+import React from "react";
 import Card from "./Card";
-import card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
 
-    const currentUser = React.useContext(CurrentUserContext)
-
-    // const [userInfo, setUserInfo] = React.useState({});
-    const [cards, setCards] = React.useState([]);
-
-    // useEffect(() => {
-    //     Promise.all([api.getProfileInfo(), api.getInitialCards()]).then(([profileInfo, card]) => {
-    //         setUserInfo(profileInfo)
-    //         setCards(card)
-    //     }).catch((err) => {
-    //         console.log(err)
-    //     })
-    // }, [])
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <main>
@@ -37,7 +23,7 @@ function Main(props) {
             </section>
 
             <section className="elements">
-                {cards.map((card, id) => (
+                {props.cards.map((card, id) => (
                     <Card
                         key={id}
                         card={card}
@@ -45,6 +31,8 @@ function Main(props) {
                         name={card.name}
                         likes={card.likes.length}
                         onCardClick={props.onCardClick}
+                        onCardLike={props.onCardLike}
+                        onCardDelete={props.onCardDelete}
                     />
                 ))}
             </section>

@@ -24,9 +24,9 @@ function App() {
 
 
   React.useEffect(() => {
-    Promise.all([api.getProfileInfo(), api.getInitialCards()]).then(([user, cards]) => {
-      setCurrentUser(user);
-      setCards(cards);
+    Promise.all([api.getProfileInfo(), api.getInitialCards()]).then(([profileInfo, card]) => {
+      setCurrentUser(profileInfo);
+      setCards(card);
     }).catch((err) => {
       console.error(err);
     });
@@ -79,6 +79,50 @@ function App() {
   }, [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen,]);
 
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    if (!isLiked) {
+      api.clickLike(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      }).catch((err) => {
+        console.error(err);
+      });
+    } else {
+      api.removeLike(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      }).catch((err) => {
+        console.error(err);
+      });
+    }
+  }
+
+  function handleAddPlaceSubmit(data) {
+    api.addNewCard(data).then((newCard) => {
+      setCards([newCard, ...cards]);
+      closeAllPopups();
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  function handleCardDelete(id) {
+    api.deleteCard(id).then(() => {
+      setCards((items) => items.filter((c) => c._id !== id._id && c));
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  function handleAvatarUpdate(data) {
+    api.editProfileAvatar(data).then((newAvatar) => {
+      setCurrentUser(newAvatar);
+      closeAllPopups();
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
@@ -86,10 +130,13 @@ function App() {
     <Header />
 
     <Main
+        cards = {cards}
         onEditProfile = {handleEditProfileClick}
         onAvatarPlace = {handleEditAvatarClick}
         onAddPlace = {handleAddPlaceClick}
         onCardClick = {handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
     />
 
     <Footer />
